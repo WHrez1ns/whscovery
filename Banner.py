@@ -1,5 +1,6 @@
 from Colors import Colors
 
+
 class Banner:
     def show(self):
         print(f"""\n{Colors.RED}              )  (             )               (        )  
@@ -11,5 +12,6 @@ _(())\_)() _((_)(_))  )\___  ((_)((_)((_)((_) (_)) __ ((_)
  \ \/\/ / | __ |\__ \ | (__| (_) |\ V /  | _| |   / \ V /  
   \_/\_/  |_||_||___/  \___|\___/  \_/   |___||_|_\  |_|   
                                     
-                                    By: WHrez1ns - v1.0.1                            
+                                    By: WHrez1ns - v1.0.2                            
+
                                                            {Colors.DEFAULT}""") 

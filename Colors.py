@@ -7,4 +7,4 @@ class Colors:
     BLUE = "\033[34m"
     PURPLE = "\033[35m"
     CIAN = "\033[36m"
-    GRAY = "\033[s37m"
+    GRAY = "\033[37m"

@@ -1,13 +1,13 @@
 # WHscovery
-__WHscovery__ é uma ferramenta para enumerar e automatizar diversas tarefas realizadas durante um __Pentest__. Foi desenvolvido com o objetivo de substituir o uso de diversas ferramentas diferentes e obter __informações objetivas__ sobre um determinado alvo.
+__WHscovery__ é uma ferramenta para __enumerar__ e __automatizar__ tarefas realizadas a __fase de enumeração__ de um __alvo__.
 
 # Funcionalidades
-- __Enumeração__ de subdomínios a partir da transparência de certificado
-- __Enumeração__ de portas abertas do lado do servidor
-- __Gerador__ de reverse shell
+- __Enumeração__ de subdomínios
+- __Enumeração__ de serviços
+- __Enumeração__ de diretórios
 
 # Sintaxe
 ```
-python3 whscovery.py <host>
+sudo ./whscovery.py <host> <wordlist>
 ```
 

@@ -1,11 +1,10 @@
 from Banner import Banner
 from CrtScan import CrtScan    
-from PortScan import PortScan    
-from ReverseShellGenerator import ReverseShellGenerator
+from PortScan import PortScan
 from SearchDirectory import SearchDirectory
 
 
-def main(target):    
+def main(target, wordlist):    
     banner = Banner()
     banner.show()
     
@@ -19,11 +18,7 @@ def main(target):
         portScan.nmapScan("-sS")
         
         # directory bruteforce
-        searchDirectory = SearchDirectory(target)
+        searchDirectory = SearchDirectory(target, wordlist)
         searchDirectory.get()
-        
-        # reverse shell generator
-        # reverseShellGenerator = ReverseShellGenerator()
-        # reverseShellGenerator.generate()
     except Exception as error:
         print(f"Unexpected error: {error}")

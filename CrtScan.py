@@ -7,7 +7,7 @@ class CrtScan:
         self.target = target 
     
     def get(self):
-        print(f"{Colors.PURPLE}[*] Trying certificate transparency{Colors.DEFAULT}")
+        print(f"{Colors.RED}[*] Trying certificate transparency{Colors.DEFAULT}")
 
         try:
             resp = requests.get(f"https://crt.sh?q={self.target}&output=json")

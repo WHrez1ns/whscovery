@@ -3,16 +3,17 @@ import requests
 
 
 class SearchDirectory:
-    def __init__(self, target):
+    def __init__(self, target, wl):
         self.target = target
+        self.wl = wl
         
     def get(self):
-        print(f"{Colors.PURPLE}[*] Trying directory bruteforce{Colors.DEFAULT}")
+        print(f"{Colors.RED}[*] Trying directory bruteforce{Colors.DEFAULT}")
         print(f"{Colors.BLUE}[-]\tdirectory\tcode\tstatus{Colors.DEFAULT}")
         
         try:
             fileDirectoryList = []
-            with open("wordlist/directorys.txt", "r") as wordlist:
+            with open(f"{self.wl}", "r") as wordlist:
                 fileDirectoryList = wordlist.readlines()
             
             for item in fileDirectoryList:
@@ -27,10 +28,10 @@ class SearchDirectory:
         if statusCode == 200:
             print(f"{Colors.GREEN}[+]\t{Colors.DEFAULT}/{item}\t\t{Colors.GREEN}{statusCode}\tSucess{Colors.DEFAULT}")
         elif statusCode == 403 or statusCode == 401:
-            print(f"{Colors.GREEN}[+]\t{Colors.DEFAULT}/{item}\t\t{Colors.RED}{statusCode}\tForbidden{Colors.DEFAULT}")
+            print(f"{Colors.GREEN}[+]\t{Colors.DEFAULT}/{item}\t\t{Colors.REDB}{statusCode}\tForbidden{Colors.DEFAULT}")
         elif statusCode < 400 and statusCode >= 300:
-            print(f"{Colors.GREEN}[+]\t{Colors.DEFAULT}/{item}\t\t{Colors.YELLOW}{statusCode}\tRedirection{Colors.DEFAULT}")
+            print(f"{Colors.GREEN}[+]\t{Colors.DEFAULT}/{item}\t\t{Colors.YELLOWB}{statusCode}\tRedirection{Colors.DEFAULT}")
         elif statusCode >= 500:
-            print(f"{Colors.GREEN}[+]\t{Colors.DEFAULT}/{item}\t\t{Colors.RED}{statusCode}\tServer Error{Colors.DEFAULT}")
+            print(f"{Colors.GREEN}[+]\t{Colors.DEFAULT}/{item}\t\t{Colors.REDB}{statusCode}\tServer Error{Colors.DEFAULT}")
         else:
             pass

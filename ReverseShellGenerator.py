@@ -2,9 +2,6 @@ from Colors import Colors
 
 
 class ReverseShellGenerator:
-    def __init__(self, target):
-        self.target = target
-
     def generate(self):
         userResp = input(f"{Colors.GRAY}[?] Generate reverse shell [Y/N]? {Colors.YELLOW}").upper()
         if userResp != 'Y' and userResp != 'N' or len(userResp) == 0:

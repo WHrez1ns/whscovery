@@ -1,26 +1,42 @@
 from Colors import Colors
 import socket
+import nmap
+import xml.etree.ElementTree
 
 
 class PortScan:
-    def __init__(self, target, ports):
+    def __init__(self, target):
         self.target = target
-        self.ports = ports
-    
-    def simpleScanPort(self):
-        print(f"{Colors.PURPLE}[*] Trying simple portscan{Colors.DEFAULT}")
-        print(f"{Colors.BLUE}[-]\tport\tstatus{Colors.DEFAULT}")
+        
+    def nmapScan(self, argument):
+        print(f"{Colors.PURPLE}[*] Trying portscan{Colors.DEFAULT}")
+        print(f"{Colors.BLUE}[-]\tport\tstate\tservice{Colors.DEFAULT}")
         
         try:
-            for port in self.ports:
-                client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                client.settimeout(0.05)
-                resp = client.connect_ex((self.target, port))
-                self.formatResponse(port, resp)
-            print("\n")
-        except Exception as error:
-            print(f"{Colors.YELLOW}[!] Simple portscan error: {error}{Colors.DEFAULT}\n")
+            nm = nmap.PortScanner()
             
-    def formatResponse(self, port, status):
-        if status == 0:
-            print(f"{Colors.GREEN}[+]\t{Colors.DEFAULT}{port}\t{Colors.GREEN}OPEN{Colors.DEFAULT}")
+            host = self.target
+            portRange = "1-1024"
+            
+            nm.scan(host, portRange, arguments=argument)
+            
+            for host in nm.all_hosts():
+                if nm[host].state() == "down":
+                    print(f"{Colors.YELLOW}[!] Non-existent or inactive host{Colors.DEFAULT}")
+                else:
+                    for proto in nm[host].all_protocols():
+                        print(f'[!] Protocol : {proto}')	
+                        lport = nm[host][proto].keys()
+                        for port in lport:
+                            state = nm[host][proto][port]['state']
+                            print(state)
+                            service = nm[host][proto][port]['name']
+                            self.formatResponse(port, state, service)
+            
+        except xml.etree.ElementTree.ParseError:
+                print(f"{Colors.YELLOW}[!] Permission error: running as user{Colors.DEFAULT}\n\n")
+        except nmap.PortScannerError:
+                print(f"{Colors.YELLOW}[!] Permission error: running as user{Colors.DEFAULT}\n\n")
+            
+    def formatResponse(self, port, status, service):
+        print(f"{Colors.GREEN}[+]\t{Colors.DEFAULT}{port}\t{Colors.GREEN}{status}{Colors.DEFAULT}\t{service}")

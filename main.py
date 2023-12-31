@@ -2,6 +2,7 @@ from Banner import Banner
 from CrtScan import CrtScan    
 from PortScan import PortScan    
 from ReverseShellGenerator import ReverseShellGenerator
+from SearchDirectory import SearchDirectory
 
 
 def main(target):    
@@ -9,15 +10,20 @@ def main(target):
     banner.show()
     
     try:
+        # certificate transparency
         crtScan = CrtScan(target)
         crtScan.get()
         
-        defaultWordlist = [ 21, 22, 80, 8080, 443, 3306 ]
-        portScan = PortScan(target, defaultWordlist)
-        portScan.simpleScanPort()
+        # portscan
+        portScan = PortScan(target)
+        portScan.nmapScan("-sS")
         
-        reverseShellGenerator = ReverseShellGenerator(target)
-        reverseShellGenerator.generate()
+        # directory bruteforce
+        searchDirectory = SearchDirectory(target)
+        searchDirectory.get()
         
+        # reverse shell generator
+        # reverseShellGenerator = ReverseShellGenerator()
+        # reverseShellGenerator.generate()
     except Exception as error:
         print(f"Unexpected error: {error}")
